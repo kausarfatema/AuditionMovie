@@ -1,0 +1,125 @@
+*{
+	margin: 0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.hero{
+	height: 100%;
+	width: 100%;
+	
+	background-size: cover;
+	position: absolute;
+}
+
+.form-box{
+	width: 500px;
+	margin: 50px auto 0;
+	background :#fff;
+	padding: 25px;
+	box-shadow: 0 0 10px  #a517ba
+}
+.lock{
+	padding:8px 11px;
+}
+.input-name{
+	width: 90%;
+	position: relative;
+	margin: 20px auto;
+}
+.name{
+	width:45%;
+	padding: 8px 0 8px 40px;
+}
+.input-name span{
+	margin-left: 25px;
+}
+.text_name{
+	width: 100%;
+	padding: 8px 0px 8px 40px;
+}
+.input-name i{
+	position: absolute;
+	font-size: 18px;
+	border-right: 1px solid #cccccc;
+}
+.email{
+	padding: 8px;
+}
+.text_name, .name{
+	border: 1px solid #cccccc;
+	outline: none;
+	-webkit-transition:all 0.30s ease-in-out;
+	-moz-transition:all 0.30s ease-in-out;
+	-ms-transition:all 0.30s ease-in-out;
+	transition: all 0.30s ease-in-out;
+}
+.text_name:hover, .name:hover{
+	background-color: #fafafa;
+}
+.text_name:focus, .name:focus{
+	-webkit-box-shadow: 0 0 2px 1px #a517ba;
+	-moz-box-shadow: 0 0 2px 1px #a517ba;
+	box-shadow: 0 0 2px 1px #a517ba;
+	border: 1px solid #a517ba;
+	background: #fafafa;
+}
+.prodiv{
+	display: inline-block;
+	width: 100%;
+	height: 35px;
+	padding: 0px 15px;
+	cursor: pointer;
+	color:#7b7b7b;
+	border: 1px solid #cccccc;
+	border-radius: 0;
+	background:#fff;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	transition: all 0.2s ease;
+
+}
+.prodiv::ms-expand{
+	display: none;
+}
+.prodiv:hover, .prodiv:focus{
+	color: #000;
+	background:#fafafa;
+	border-color: #a517ba;
+	outline: none;
+}
+
+@media(max-width: 400px){
+	.form-box{
+		width: 100%;
+	}
+	.input-name{
+		margin-bottom: -10px;
+	}
+	.name{
+		width:100%;
+		padding: 8px 0px 8px 40px;
+		margin-bottom: 10px;
+	}
+	.input-name span{
+		padding: 0;
+		margin: 0;
+	}
+}
+
+li::marker {
+  color: red;
+  
+}
+

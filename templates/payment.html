@@ -1,0 +1,29 @@
+<form>
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+  <button type="button" onClick="makePayment()">Pay Now</button>
+</form>
+
+<script>
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-6f186c78fd1fdd566d14fa919c768f9d-X",
+      tx_ref: "RX868",
+      amount: 300,
+      currency: "RWF",
+      payment_options: "",
+      customer: {
+        email: "bhimanisaiyada7@gmail.com",
+        phone_number: "",
+        name: "Flutterwave Developers",
+      },
+      callback: function (data) { // specified callback function
+        console.log(data);
+      },
+      customizations: {
+        title: "My store",
+        description: "Payment for items in cart",
+        
+      },
+    });
+  }
+</script>

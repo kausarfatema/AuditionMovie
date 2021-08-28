@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data" id="personForm" data-cities-url="{% url 'ajax_load_cities' %}">
+	{% csrf_token %}
+	<div class="row">
+
+	{% for field in u_form %}
+	{{ field.label }}
+	{{ field }}
+
+	{% endfor %}
+	</div>
+	{% for field in  p_form %}
+	{{ field.label }}
+	{{ field }}
+
+	{% endfor %}
+	<div class="form-group">
+		<button class="btn btn-outline-info" type="submit">Register</button>
+	</div>
+</form>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$('#id_province').change(function(){
+		const url=$('#personForm').attr('data-cities-url')
+		const province_id=$(this).val()
+		$.ajax({
+			url:url,
+			data:{
+				'province_id':province_id
+			},
+			success: function(data){
+				$('#id_district').html(data)
+			}
+		})
+
+
+	})
+	$('#id_district').change(function(){
+		const url2='/ajax/load-districts/'
+		const district_id=$(this).val()
+		$.ajax({
+			url:url2,
+			data:{
+				'district_id':district_id
+			},
+			success:function(data){
+				$('#id_sector').html(data)
+			}
+		})
+	})
+</script>
+</body>
+</html>
+
+
+

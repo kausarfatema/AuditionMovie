@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+        
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+                position: relative;
+                display: flex;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: left;
+                color: #fff;
+                background-color: #986212;
+            }
+            .header-title{
+                font-size: 20px;
+                font-weight: 900;
+                color: #000;
+                text-align: center;
+                padding: 0;
+                
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;
+               font-weight: bolder!important;  
+             
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                margin-top: 15px;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            .head-sect{
+                background-color: #000;
+            }
+            .header-logo{
+                width: 40%;
+                height: 40px;
+                background: #000;
+
+            }
+            .report-author {
+                display: flex;
+
+            }
+            .report-author p{
+               padding-top: 5px;
+                
+            }
+            .logo-img{
+                width: 140px;
+                height: 70px;
+                float: left;
+            }
+            .author-list{
+                margin: 0;
+                padding: 0;
+            }
+            .signature-sect{
+                padding: 360px 0 0 30px;
+                height: 100px;
+            }
+            
+    
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class="header-logo">
+                <img class="logo-img" src="/home/kausar/Audition/static/images/dashlogo.jpg" alt="" />
+            </div>
+            <div class='header-title'>
+                <p class='title'>Report  </p>
+            </div>
+        <div>
+        <div class="report-author">
+            <p class="author-list">Done by: <i>Kausar</i></p>
+            <p class="author-list">On : <i>19,August 2021</i></p>
+        </div>
+        <div class='details'>
+            <table class ="zigzag">
+                <thead class="head-sect">
+                    <th class="header">Talent</th>
+                    <th class="header">Status</th>
+                    <th class="header">Amount</th>
+                    <th class="header">Photographer</th>
+
+                </thead>
+            <tbody>
+            {% for app in app %}
+            <tr>
+                
+                <td>{{ app.talent.user.username }}</td>
+                <td>{{ app.status }}</td>
+                <td>{{ app.ammount }}
+                <td>{{ app.photographer.user.username }}</td>
+                
+                
+            {% endfor %}
+            </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="signature-sect">
+            <div class="signature-cont">
+                <p>Signature:</p>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    </body>
+</html>

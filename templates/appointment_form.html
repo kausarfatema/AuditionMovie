@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+    <link rel="stylesheet" type="text/css" href="/static/css/registertalent.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.min.css" integrity="sha256-/8xGgcV6Mp9fFa2u2lLYOWYNluCdrHEvBfiwhpkD/Js=" crossorigin="anonymous" />
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/theme.min.css" integrity="sha256-j5WK5GB3+w3i2jRf0bV9dkjJ+mm+TiSEG6WgNiD+gWk=" crossorigin="anonymous" />
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css" integrity="sha256-rxais37anKUnpL5QzSYte+JnIsmkGmLG+ZhKSkZkwVM=" crossorigin="anonymous" />
+	{% load crispy_forms_tags %}
+    
+    
+</head>
+<body>
+<div class="form-box">
+<div class="form-container">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <section id="form-wrapper">
+            <form  class="appointment-form">
+               
+                {{ form.as_p }}
+               
+
+             
+            </form>
+            <button class="btn btn-primary" onClick="makePayment()">Pay</button>
+            
+        </section>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+ <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous">
+</script>
+
+<!-- this file was missing -->
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+<!-- this file was moved after the jQuery Datatables library was laoded -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+
+
+    $('#id_date').change(function(){
+        var time =["09:00 – 09:30","10:00 – 10:30","11:00 – 11:30","12:00 – 12:30"]
+        var dat= $(this).val();
+        console.log(dat)
+        $.ajax({
+            url:'/payment/test/',
+            method:'POST',
+            data:{
+                'date': dat,
+                'ph' : {{ ph.id }}
+            },
+            success:function(data){
+                    
+                    console.log(data.length)
+                    for (var j=0 ; j<data.length; j++){
+                        console.log(data[j].timeslot)
+                        t = time.indexOf(data[j].timeslot)
+                    
+                        if (t > -1) {
+                        time.splice(t, 1);
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    
+                    var newslots ={};
+                    var i;
+                    for(i=0;i<time.length; i++){
+                        newslots[time[i]] = time[i]
+                    }
+
+                    var $el = $("#id_timeslot");
+                    
+                    $el.empty();
+                    $.each(newslots, function(key,value) {
+                    $el.append($("<option></option>")
+                       .attr("value", value).text(key));
+
+                   
+
+});
+            }
+        })
+    })
+
+    $(document).ready(function(){
+		var dateToday = new Date();
+		$('#id_date').datepicker({
+			changeYear:true,
+			changeMonth:true,
+			minDate: dateToday,
+			dateformat:'yy-mm-dd',
+		})
+    })
+</script>
+
+<script>
+  var ema = "{{ user.email }}";
+  var time= new Date().getUTCMilliseconds();
+  txt= time + Math.random()
+  function postdata(data){
+      var date= document.getElementById('id_date').value;
+      var timeslot = document.getElementById('id_timeslot').value;
+      var status = data.status
+      var txt = data.tx_ref
+      var transaction_id = data.transaction_id
+      var url ="{% url 'pay' %}"
+      var e = document.getElementById('id_request_service')
+      var sev = e.value;
+
+
+      fetch(url,{
+          method: 'POST',
+          body : JSON.stringify({
+              'date': date,
+              'timeslot': timeslot,
+              'ph' : {{ ph.id }},
+              'status' : status,
+              'txt' : txt,
+              'tr_id'  : transaction_id,
+              'sev' : sev
+
+
+          })
+      }).then(response => {
+          window.location.href="{% url 'talappoint'%}"
+      }
+          
+      )
+  }
+
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-6f186c78fd1fdd566d14fa919c768f9d-X",
+      tx_ref: txt,
+      amount: 300,
+      currency: "RWF",
+      payment_options: " ",
+      customer: {
+        email: ema ,
+        phone_number: " ",
+        name: "Flutterwave Developers",
+      },
+      callback: function (data) { // specified callback function
+        postdata(data)
+      },
+      customizations: {
+        title: "Appointment",
+        description: "Appointment with photographer",
+        
+      },
+    });
+  }
+
+</script>
+
+</body>
+</html
+
+

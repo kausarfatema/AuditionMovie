@@ -1,0 +1,61 @@
+*{
+	margin:0;
+	padding: 0;
+}
+
+
+body{
+	font-family: sans-serif;
+}
+#nav-bar{
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+.navbar{
+	background: #081213;
+	padding: 0 !important;
+}
+.navbar-brand img
+{
+	height: 160px;
+	padding-left: 20px;
+}
+.navbar-nav li{
+	padding: 0 10px;
+}
+
+.navbar-nav li a{
+	color: #fff !important;
+	font-weight: 600;
+	float: right;
+	text-align: left;
+}
+.fa-bars{
+	color: #fff;
+	font-size: 30px !important;
+}
+.navbar-toggler{
+	outline: none !important;
+}
+#banner{
+	background: #081213;
+	color: #fff;
+	padding-top: 50;
+}
+.container > div > div > img{
+	max-height: 500px!important;
+}
+.container > div >:first-child{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.promo-title{
+	font-size: 47px;
+	font-weight: 600;
+	padding-top: 15%;
+}
+.bottom-img{
+	width:100%;
+}

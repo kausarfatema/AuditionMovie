@@ -1,0 +1,70 @@
+{% extends "photographerbase.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-12 col-md-6">
+<div class="form-group">
+    <label for="foldername">Name:</label>
+    <input type="text" class="form-control" id="foldername" >
+    
+</div>
+<div class="form-group">
+    <label for="disp">Display Image:</label>
+    <input type="file" class="form-control" id="disp" accept="image/*" >
+    
+</div>
+<input type="file"  name="images" multiple="">
+<button type="button" id="saveBtn">Apply</button>
+</div>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded',function(){
+        
+        
+		var files=[]
+		const inputelement=document.querySelector('input[name="images"]');
+		const pond=FilePond.create( inputelement,{
+			onaddfile:(err,fileItem)=>{
+				files.push(fileItem.file)
+				
+			},
+			onremovefile: (err,fileItem)=>{
+				const index=files.indexOf(fileItem.file)
+				if (index > -1){
+					files.splice(index,1)
+					console.log(files)
+				}
+			}
+
+		} )
+		var formData=new FormData();
+		$(document).on('click','#saveBtn',function(e){
+            var disp = document.getElementById("disp").files
+            var foldername = document.getElementById("foldername").value
+			formData.append('length',files.length)
+			for (var i=0;i<files.length; i++){
+				formData.append('image'+i,files[i])
+			}
+			formData.append('csrfmiddlewaretoken','{{ csrf_token }}')
+            formData.append('display',disp[0])
+            console.log(disp[0])
+            formData.append('foldername',foldername)
+			$.ajax({
+				type:"POST",
+				url: '{% url "upload-work"  %}',
+				data: formData,
+				processData: false,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				success: function(){
+					window.location.href="{% url 'view-folder' %}"
+				},
+				error: function(xhr,errmsg,err){
+					console.log(xhr.status + ":", xhr.responseText)
+				}
+
+			})
+		})
+	})
+</script>
+
+{% endblock content %}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+	<title></title>
+	<link href="/static/css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/static/css/feature.css">
+
+    <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+
+	<section id="nav-bar">
+<nav class="navbar navbar-expand-lg navbar-light ">
+  <a class="navbar-brand" href="#"><img src="/static/images/cinlogo.svg"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fa fa-bars"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">HOME </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#features">SERVICES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">ABOUT US</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_login' %}">DASHBOARD</a>
+      </li>
+      {% else %}
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_login' %}">LOGIN</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+	</section>
+
+
+
+<section id="banner">
+  <div class="container" >
+    <div class="row">
+      <div class="col-md-6">
+        <p class="promo-title">Best Agency For Movies</p>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="/static/images/homelogo.jpg" class="img-fluid">
+      </div>
+      
+    </div>
+  </div>
+<img src="/static/images/wave.png" class="bottom-img">
+</section>
+
+<section class="features" id="features">
+
+    <h1 class="heading"> Services </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="images/f-icon1.png" alt="">
+            <h3>Send Application Recruter</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minus recusandae autem, repellendus fugit quaerat provident voluptatum non officiis ratione.</p>
+            <a href="{% url 'recruterapp' %}" class="btn">Send Recruter Application</a>
+        </div>
+
+        <div class="box">
+            <img src="images/f-icon2.png" alt="">
+            <h3>Send Application Photographer</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minus recusandae autem, repellendus fugit quaerat provident voluptatum non officiis ratione.</p>
+            <a href="{% url 'appli' %}" class="btn">Send Photographer Application</a>
+        </div>
+
+        <div class="box">
+            <img src="images/f-icon3.png" alt="">
+            <h3>Create Talent Account</h3>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minus recusandae autem, repellendus fugit quaerat provident voluptatum non officiis ratione.</p>
+            <a href="{% url 'talreg' %}" class="btn">Create talent Account</a>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

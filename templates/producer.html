@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/prohome.css">
+    
+</head>
+<body>
+<div class="wrapper">
+    <div class="handburder">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+    </div>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">
+              <span class="icon"><i class="fas fa-book"></i></span>
+              <span class="title">Books</span></a></li>
+            <li><a href="#">
+              <span class="icon"><i class="fas fa-file-video"></i></span>
+              <span class="title">Movies</span>
+              </a></li>
+            <li><a href="#">
+              <span class="icon"><i class="fas fa-volleyball-ball"></i></span>
+              <span class="title">Sports</span>
+              </a>
+            </li>
+            <li><a href="#" class="active cat-btn">
+              <span class="icon"><i class="fas fa-blog"></i></span>
+              <span class="title">Blogs</span>
+
+              <span class="arrow"> <i class="fas fa-caret-down first"></i></span>
+              </a>
+              <ul class="cat-show">
+                {% for category in category%}
+                <li>
+                  <a href="#">
+                    <span class="icon"><i class="fas fa-blog"></i></span>
+                    <span class="title">{{ category.name }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li><a href="#">
+              <span class="icon"><i class="fas fa-leaf"></i></span>
+              <span class="title">Nature</span>
+              </a></li>
+        </ul>
+    </div>
+    <div class="page">
+        <div class="main">
+            <p>Lorem ipsum dolor, 
+                sit amet consectetur a
+                dipisicing elit.
+                 Numquam dolores placeat
+                 illum asperiores sed d
+                ucimus animi mollitia quibusdam 
+                perspiciatis, at aliquam natus 
+                eveniet beatae minus blanditiis 
+                labore incidunt voluptatibus? 
+                Ratione.</p> 
+        </div>
+
+    </div>
+</div>
+</body>
+
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".handburder").click(function(){
+           $(".wrapper").toggleClass("collapse");
+        });
+        $(".cat-btn").click(function(){
+          $(".wrapper .sidebar ul li ul.cat-show").toggleClass("show1")
+          $(".wrapper .sidebar ul  li a span.arrow i").toggleClass("rotate")
+
+        });
+
+
+    });
+</script>
+</html>

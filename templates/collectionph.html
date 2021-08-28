@@ -1,0 +1,83 @@
+{% extends "photographerbase.html" %}
+{% load crispy_forms_tags %}
+{% block dash %}
+<a href="{% url 'ad-pic' id%}" class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">
+                                Add Pictures</a>
+{% endblock dash %}
+{% block content %}
+
+<div class="coll">
+    
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel" style="height:600px; width:700px">
+<!--Indicators-->
+        <ol class="carousel-indicators">
+        {% for p in ph %}
+            <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+        {% endfor %}
+        </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            {% for p in ph %}
+            <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+            <img class="d-block w-100" src="{{ p.image.url }} " height="400" width="600"
+                alt="First slide">
+            </div>
+            
+            {% endfor %}
+            <!--/First slide-->
+        <!--/.Slides-->
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <!--/.Controls-->
+        </div>
+</div>
+<div class="col-12 col-md-8">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Images</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</ID>
+                                            <th>Action</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {% for ph in ph %}
+                                        <tr id="{{ ph.id }}">
+                                            <td><img src="{{ ph.image.url }}" height="50px" width="60px"></td>
+                                            <td>
+                                            <form method="POST" action="{% url 'del-pic' id ph.id %}" >
+                                                {% csrf_token %}
+                                                
+                                                
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+
+
+{% endblock content %}

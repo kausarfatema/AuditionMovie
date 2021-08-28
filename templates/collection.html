@@ -1,0 +1,28 @@
+{% extends "photographerbase.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <div class ="row">
+                
+                {% for folder in folder %}
+                <div class = "col-md-3">
+                <div class="card" style="width: 13rem;">
+                    <img class="card-img-top" src={{ folder.display_image.url }} alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ folder.name }}</h5>
+                        
+                        
+                        <a href="{% url 'view-pic' folder.id %}" class="btn btn-primary">View Pictures  </a>
+                        
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+                
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

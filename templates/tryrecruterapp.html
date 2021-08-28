@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+  <link rel="stylesheet" type="text/css" href="/static/css/registertalent.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	
+	
+<div class="hero">
+  <div class="form-box" >
+   
+     <div class="form-container">
+       <form method="POST" enctype="multipart/form-data" id="talentform" data-cities-url="{% url 'ajax_load_cities' %}">
+        {% csrf_token %}
+        <div class="input-name">
+          <i class="fa fa-user lock"></i>
+          {{ u_form.first_name }}
+          <span>
+            <i class="fa fa-user lock"></i>
+            {{ u_form.last_name }}
+          </span>
+        </div>
+        <div class="input-name">
+          <i class="fa fa-user lock"></i>
+          {{ u_form.username }}
+        </div>
+        <div class="input-name">
+          <i class="fa fa-envelope email"></i>
+          {{ u_form.email }}
+        </div>
+        <div class="input-name">
+          <i class="fa fa-lock lock"></i>
+          {{ u_form.password1}}
+        </div>
+      
+        <div class="input-name">
+          <i class="fa fa-lock lock"></i>
+          {{ u_form.password2}}
+        </div>
+        <div class="input-name">
+        {{ u_form.province}}
+      </div>
+      <div class="input-name">
+        {{ u_form.district}}
+      </div>
+      <div class="input-name">
+        {{ u_form.sector}}
+      </div>
+      <div class="input-name">
+        {{ u_form.gender }}
+      </div>
+      <div class="input-name">
+        {{  }}
+      </div>
+       <div class="input-name">
+        {{  }}
+      </div>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Register</button>
+      </div>
+
+        </form>
+        {% if u_form.errors %}
+          {% for field in u_form %}
+            {% for error in field.errors %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ error|escape }}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endfor %}
+          {% for error in u_form.non_field_errors %}
+            <div class="alert alert-danger">
+              <p>{{ error|escape }}</p>
+            </div>
+          {% endfor %}
+        {% endif %}
+     </div>
+   
+  </div>
+  
+</div>
+	
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+	$("#id_username").change(function () {
+      var username = $(this).val();
+
+      $.ajax({
+        url: '/ajax/validate_username/',
+        method:"POST",
+        data: {
+          'username': username
+        },
+        
+        success: function (data) {
+          if (data.is_taken) {
+            alert("A user with this username already exists.");
+          }
+        }
+      });
+
+    });
+  var form_fields=document.getElementsByTagName('input')
+  form_fields[1].placeholder='First Name'
+  form_fields[2].placeholder='Last Name'
+  form_fields[3].placeholder='Username'
+  var i;
+  form_fields[1].classList.add('name');
+  form_fields[2].classList.add('name');
+  form_fields[3].classList.add('text_name')
+  form_fields[4].classList.add('text_name')
+  form_fields[5].classList.add('text_name')
+  form_fields[6].classList.add('text_name')
+  var select_fields=document.getElementsByTagName('select')
+  
+  
+  for(i=0;i<select_fields.length;i++){
+    select_fields[i].classList.add("prodiv")
+    
+  }
+  $('#id_province').change(function(){
+    const url=$('#talentform').attr('data-cities-url')
+    const province_id=$(this).val()
+    $.ajax({
+      url:url,
+      data:{
+        'province_id':province_id
+      },
+      success: function(data){
+        $('#id_district').html(data)
+      }
+    })
+
+
+  })
+  $('#id_district').change(function(){
+    const url2='/ajax/load-districts/'
+    const district_id=$(this).val()
+    $.ajax({
+      url:url2,
+      data:{
+        'district_id':district_id
+      },
+      success:function(data){
+        $('#id_sector').html(data)
+      }
+    })
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+{% load crispy_forms_tags %}
+<head>
+	<title></title>
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+{{ a_form|crispy }}
+<div class="form-group">
+		<button class="btn btn-outline-info" type="submit">Register</button>
+</div>
+</form>
+
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.min.css" integrity="sha256-/8xGgcV6Mp9fFa2u2lLYOWYNluCdrHEvBfiwhpkD/Js=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/south-street/theme.min.css" integrity="sha256-j5WK5GB3+w3i2jRf0bV9dkjJ+mm+TiSEG6WgNiD+gWk=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.min.css" integrity="sha256-rxais37anKUnpL5QzSYte+JnIsmkGmLG+ZhKSkZkwVM=" crossorigin="anonymous" />
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.0.min.js"
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+  crossorigin="anonymous">
+  </script>
+
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous">
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var dateToday = new Date();
+		$('#id_date').datepicker({
+			changeYear:true,
+			changeMonth:true,
+			minDate: dateToday,
+			dateformat:'yy-mm-dd',
+		})
+		/*
+		$('#id_date').change(function(){
+			var dat= $(this).val();
+			$.ajax({
+				url:'/test/',
+				method:'POST',
+				data:{
+					date: dat
+				},
+				success:function(data){
+					if(data.is_appoint){
+						alert("A user with this username already exists.");
+						$('#id_date').val('')
+					}
+				}
+			})
+		})
+		*/
+	}
+
+	)
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% extends "recruterbase.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="content-section">
+  <div class="col-4">
+		<form method="POST" enctype="multipart/form-data" id="talentform" data-cities-url="{% url 'ajax_load_cities' %}">
+			{% csrf_token %}
+			{{ u_form|crispy }}
+            {{ p_form|crispy }}
+
+            <button type="submit" class="btn btn-primary">Save changes</button>
+		</form>
+			</div>
+	</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+
+  $('#id_province').change(function(){
+    const url=$('#talentform').attr('data-cities-url')
+    const province_id=$(this).val()
+    $.ajax({
+      url:url,
+      data:{
+        'province_id':province_id
+      },
+      success: function(data){
+        $('#id_district').html(data)
+      }
+    })
+
+
+  })
+  $('#id_district').change(function(){
+    const url2='/ajax/load-districts/'
+    const district_id=$(this).val()
+    $.ajax({
+      url:url2,
+      data:{
+        'district_id':district_id
+      },
+      success:function(data){
+        $('#id_sector').html(data)
+      }
+    })
+  })
+</script>
+{% endblock content %}
