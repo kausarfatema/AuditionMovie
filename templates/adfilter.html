@@ -242,6 +242,7 @@
                 <div class ="row">
                 
                 {% for ad in ads %}
+                {% if not ad.is_past_due %}
                 <div class = "col-md-3">
                 <div class="card" style="width: 13rem;">
                     <img class="card-img-top" src={{ ad.img.url }} alt="Card image cap">
@@ -253,6 +254,7 @@
                     </div>
                 </div>
                 </div>
+                {% endif %}
                 {% endfor %}
                 
                 </div>

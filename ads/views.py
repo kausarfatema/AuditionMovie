@@ -45,7 +45,7 @@ def filteredAd(request):
 	ad= Ad.objects.all().filter(start_application=True)
 	appl = Application.objects.filter(talent = request.user.talent)
 	res = Result.objects.filter(status ='F',talent= request.user.talent)
-	ads = Ad.objects.exclude(application__in=appl).filter(start_application=True)
+	ads = Ad.objects.exclude(result__in=res).exclude(application__in=appl).filter(start_application=True)
 	print(ads)
 	myfilter = AdFilter(request.GET, queryset=ads)
 	ads=myfilter.qs
